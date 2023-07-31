@@ -35,3 +35,7 @@ body {
   border-radius: 10px;
   background-color: #373c4f;
 }
+#maindetail{
+  display: flex;
+  flex-direction: column;
+}
