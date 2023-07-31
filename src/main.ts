@@ -1,12 +1,15 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import * as path from 'path'
+import Event from './classes/Event'
+
+let mainWindow
+const detailWindows = []
 
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
-      contextIsolation: false
+      nodeIntegration: true
     },
     width: 1920,
     height: 1080
@@ -16,8 +19,36 @@ function createWindow() {
   mainWindow.maximize()
   mainWindow.removeMenu()
 
+  // TODO: remove
   mainWindow.webContents.openDevTools()
 }
+
+function createDetailWindow(testData: any) {
+  const browerWindow = new BrowserWindow({
+    webPreferences: {
+      preload: path.join(__dirname, './views/detail.js'),
+      nodeIntegration: true
+    },
+    width: 1920,
+    height: 1080
+  })
+
+  browerWindow.loadFile(path.join(__dirname, '../detail.html'))
+  browerWindow.maximize()
+  browerWindow.removeMenu()
+  browerWindow.webContents.send('init-data', testData)
+
+  // TODO: remove
+  browerWindow.webContents.openDevTools()
+
+  detailWindows.push(browerWindow)
+}
+
+
+ipcMain.handle('createDetailWindow', (event, params) => {
+  createDetailWindow(params)
+})
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

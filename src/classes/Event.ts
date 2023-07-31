@@ -10,4 +10,8 @@ export default class Event {
     this.to = to
     this.title = title
   }
+
+  static hydrate(object: any) {
+    return new Event(object.id, object.from, object.to, object.title)
+  }
 }

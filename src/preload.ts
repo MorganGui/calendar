@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron'
 import Event from './classes/Event'
 
 window.addEventListener(`DOMContentLoaded`, () => {
@@ -24,7 +25,10 @@ window.addEventListener(`DOMContentLoaded`, () => {
     addEventCloseBtn: document.querySelector('.close'),
     addEventTitle: <HTMLInputElement>document.querySelector('.event-name'),
     addEventFrom: <HTMLInputElement>document.querySelector('.event-time-from'),
-    addEventTo: <HTMLInputElement>document.querySelector('.event-time-to')
+    addEventTo: <HTMLInputElement>document.querySelector('.event-time-to'),
+
+
+    testNewWindow: document.querySelector('.test-new-window')
   }
 
   const months = [
@@ -213,6 +217,9 @@ window.addEventListener(`DOMContentLoaded`, () => {
     new Event(1, 1688893368429, 1688893488429, 'test2')
   ]
 
+  /**
+   * check if the title isn't largest than 50 characters
+   */
   function eventTitleInputCheck() {
     dom.addEventTitle.value = dom.addEventTitle.value.slice(0, 50)
   }
@@ -226,6 +233,10 @@ window.addEventListener(`DOMContentLoaded`, () => {
     if (input.value.length > 5) {
       input.value = input.value.slice(0, 5)
     }
+  }
+
+  function newWindow(event: Event) {
+    ipcRenderer.invoke('createDetailWindow', event)
   }
 
 
@@ -249,5 +260,8 @@ window.addEventListener(`DOMContentLoaded`, () => {
   dom.addEventCloseBtn.addEventListener('click', () => {
     dom.addEventContainer.classList.remove('active')
     dom.addEventBtn.classList.remove('active')
+  })
+  dom.testNewWindow.addEventListener('click', () => {
+    newWindow(events[0])
   })
 })
