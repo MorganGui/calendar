@@ -131,6 +131,14 @@ window.addEventListener(`DOMContentLoaded`, () => {
     month = today.getMonth()
     year = today.getFullYear()
     initCalendar()
+
+    const date = today.getDate()
+    getActiveDay(date)
+    Array.from(dom.daysContainer.children).forEach(child => {
+      if (child.innerHTML === date.toString() && !child.classList.contains('prev-date') && !child.classList.contains('next-date')) {
+        child.classList.add('active')
+      }
+    })
   }
   function gotoDate() {
     if (dom.gotoInput.value.length === 0) {
@@ -212,9 +220,9 @@ window.addEventListener(`DOMContentLoaded`, () => {
    * EVENTS
    */
   const events = [
-    new Event(0, 1686133800000, 1686139200000, 'Pause déjeuner'),
-    new Event(1, 1688716968429, 1688720568429, 'test'),
-    new Event(1, 1688893368429, 1688893488429, 'test2')
+    new Event(0, 1686133800000, 1686139200000, 'Pause déjeuner', 'blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'),
+    new Event(1, 1688716968429, 1688720568429, 'test', 'blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'),
+    new Event(1, 1688893368429, 1688893488429, 'test2', 'blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla')
   ]
 
   /**

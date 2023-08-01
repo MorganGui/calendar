@@ -1,5 +1,6 @@
 .left {
   width: 60%;
+  user-select: none;
 }
 
 .calendar {
@@ -40,7 +41,6 @@
   font-size: 1.5em;
   font-weight: 500;
   text-transform: capitalize;
-  padding: 32px;
 }
 .calendar .month .date {
   padding: 0 8px;
@@ -50,6 +50,7 @@
   cursor: pointer;
   fill: #878895;
   transition: 100ms;
+  padding: 32px;
 }
 .calendar .month .prev:hover,
 .calendar .month .next:hover {
