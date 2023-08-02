@@ -242,7 +242,6 @@ window.addEventListener(`DOMContentLoaded`, () => {
       input.value = input.value.slice(0, 5)
     }
   }
-
   function newWindow(event: Event) {
     ipcRenderer.invoke('createDetailWindow', event)
   }
