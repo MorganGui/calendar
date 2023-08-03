@@ -1,14 +1,19 @@
 import { ipcRenderer } from 'electron'
 import Event from '../classes/Event'
 
-function formatTimestampToReadableDate(timestamp: number): string {
-  const date = new Date(timestamp);
-  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString('fr-FR', options);
-}
 
 window.addEventListener('DOMContentLoaded', () => {
   let currentEvent: Event;
+
+  function formatTimestampToReadableDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('fr-FR', options);
+  }
+  function createChangeWindow(){
+    //console.log("rnfvj");
+    ipcRenderer.invoke("createChangeWindow", currentEvent);
+  }
 
   ipcRenderer.on('init-data', (event, params: Event) => {
     currentEvent = Event.hydrate(params);
@@ -44,5 +49,9 @@ window.addEventListener('DOMContentLoaded', () => {
     if (EveDescElement) {
       EveDescElement.textContent = currentEvent.desc;
     }
+
+    const btnChange = document.getElementById('BChange');
+
+    btnChange.addEventListener("click", createChangeWindow) 
   });
 });

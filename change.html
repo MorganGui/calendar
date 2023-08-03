@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <title>Évenement</title>
+  <link rel="stylesheet" href="./src/style/style.css">
+  <link rel="stylesheet" href="./src/style/details.css">
+</head>
+
+<body>
+  <div id="maindetail">
+    <h1 id="Dtitle">Titre de l'événement</h1>
+    <p id="Bdate">Début: Date de début</p>
+    <p id="Edate">Fin: Date de fin</p>
+    <p id="EveDesc">Description de l'événement</p>
+  
+    <!-- Champs pour les modifications -->
+    <label for="newTitle">Nouveau titre:</label>
+    <input type="text" id="newTitle"><br>
+    <label for="newStartDate">Nouvelle date:</label>
+    <input type="date" id="newStartDate">
+    <label for="newStartTime">Heure de début:</label>
+    <input type="time" id="newStartTime"><br>
+    <label for="newEndDate">Nouvelle date:</label>
+    <input type="date" id="newEndDate">
+    <label for="newEndTime">Heure de fin:</label>
+    <input type="time" id="newEndTime"><br>
+    <label for="newDescription">Nouvelle description:</label>
+    <input type="text" id="newDescription"><br>
+  
+    <!-- Bouton pour appliquer les modifications -->
+    <button id="BChange">Appliquer les modifications</button>
+  </div>
+</body>
+
+</html>

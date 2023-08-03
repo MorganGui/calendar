@@ -4,6 +4,7 @@ import Event from './classes/Event'
 
 let mainWindow
 const detailWindows = []
+const changeWindows = []
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -38,15 +39,32 @@ function createDetailWindow(testData: any) {
   browerWindow.removeMenu()
   browerWindow.webContents.send('init-data', testData)
 
-  // TODO: remove
-  browerWindow.webContents.openDevTools()
-
   detailWindows.push(browerWindow)
 }
 ipcMain.handle('createDetailWindow', (event, params) => {
   createDetailWindow(params)
 })
 
+// Open change window
+ipcMain.handle('createChangeWindow', (event, params) => {
+  const browerWindow = new BrowserWindow({
+    webPreferences: {
+      preload: path.join(__dirname, './views/change.js'),
+      nodeIntegration: true
+    },
+    width: 1280,
+    height: 720
+  })
+
+  browerWindow.loadFile(path.join(__dirname, '../change.html'))
+  browerWindow.removeMenu()
+  browerWindow.webContents.send('init-data', params)
+
+  // TODO: remove
+  browerWindow.webContents.openDevTools()
+
+  changeWindows.push(browerWindow)
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
