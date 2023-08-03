@@ -30,13 +30,13 @@ window.addEventListener('DOMContentLoaded', () => {
     // Affichage de la date "from" formatée dans l'élément avec l'ID "Bdate"
     const BdateElement = document.getElementById('Bdate');
     if (BdateElement) {
-      BdateElement.textContent = `From: ${fromReadableDate}`;
+      BdateElement.textContent = `Début: ${fromReadableDate}`;
     }
 
     // Affichage de la date "to" formatée dans l'élément avec l'ID "Edate"
     const EdateElement = document.getElementById('Edate');
     if (EdateElement) {
-      EdateElement.textContent = `To: ${toReadableDate}`;
+      EdateElement.textContent = `Fin: ${toReadableDate}`;
     }
 
     // Affichage de la description dans l'élément avec l'ID "EveDesc"
