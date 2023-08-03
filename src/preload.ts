@@ -221,8 +221,8 @@ window.addEventListener(`DOMContentLoaded`, () => {
    * EVENTS
    */
   const events = [
-    new Event(0, 1686133800000, 1686139200000, 'Pause déjeuner', 'blablablablablablablablablablablablablablablablablablablabla blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'),
-    new Event(1, 1688716968429, 1688720568429, 'test', 'blablablablablablablablablablablablablablablablablablablablablablablabla blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'),
+    new Event(0, 1690966677000, 1690966677000, 'Pause déjeuner', 'blablablablablablablablablablablablablablablablablablablabla blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'),
+    new Event(1, 1690977777000, 1690977777000, 'test', 'blablablablablablablablablablablablablablablablablablablablablablablabla blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'),
     new Event(2, 1688893368429, 1688893488429, 'test2', 'blablablablablablablablablablablablablablablablablablablablablablablabla blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla')
   ]
 
