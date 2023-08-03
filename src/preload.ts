@@ -20,15 +20,13 @@ window.addEventListener(`DOMContentLoaded`, () => {
 
 
 
+    eventsContainer: document.querySelector('.events'),
     addEventBtn: document.querySelector('.add-event'),
     addEventContainer: document.querySelector('.add-event-wrapper'),
     addEventCloseBtn: document.querySelector('.close'),
     addEventTitle: <HTMLInputElement>document.querySelector('.event-name'),
     addEventFrom: <HTMLInputElement>document.querySelector('.event-time-from'),
-    addEventTo: <HTMLInputElement>document.querySelector('.event-time-to'),
-
-
-    testNewWindow: document.querySelector('.test-new-window')
+    addEventTo: <HTMLInputElement>document.querySelector('.event-time-to')
   }
 
   const months = [
@@ -56,6 +54,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
   ]
 
   const today = new Date()
+  let date = today.getDate()
   let month = today.getMonth()
   let year = today.getFullYear()
   dom.gotoInput.placeholder = `${month.toString().length === 1 ? '0' : ''}${month}/${year}`
@@ -96,7 +95,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
       if (j === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
         days += `<div class="day today ${firstInit ? 'active' : ''}${haveEvent ? ' event' : ''}">${j}</div>`
         if (firstInit) {
-          getActiveDay(j)
+          getActiveDay()
         }
       } else {
         days += `<div class="day${haveEvent ? ' event' : ''}">${j}</div>`
@@ -128,12 +127,12 @@ window.addEventListener(`DOMContentLoaded`, () => {
     initCalendar()
   }
   function gotoToday() {
+    date = today.getDate()
     month = today.getMonth()
     year = today.getFullYear()
     initCalendar()
 
-    const date = today.getDate()
-    getActiveDay(date)
+    getActiveDay()
     Array.from(dom.daysContainer.children).forEach(child => {
       if (child.innerHTML === date.toString() && !child.classList.contains('prev-date') && !child.classList.contains('next-date')) {
         child.classList.add('active')
@@ -177,8 +176,9 @@ window.addEventListener(`DOMContentLoaded`, () => {
     days.forEach(day => {
       day.addEventListener('click', e => {
         const target = e.target as HTMLElement
+        date = parseFloat(target.innerHTML)
 
-        getActiveDay(parseFloat(target.innerHTML))
+        getActiveDay()
 
         days.forEach(day => {
           day.classList.remove('active')
@@ -206,11 +206,12 @@ window.addEventListener(`DOMContentLoaded`, () => {
       })
     })
   }
-  function getActiveDay(date: number) {
+  function getActiveDay() {
     const day = new Date(year, month, date)
     const dayName = days[day.getDay()]
     dom.eventDay.innerHTML = dayName
     dom.eventDate.innerHTML = date + ' ' + months[month] + ' ' + year
+    showEvents()
   }
 
 
@@ -242,6 +243,50 @@ window.addEventListener(`DOMContentLoaded`, () => {
       input.value = input.value.slice(0, 5)
     }
   }
+  function showEvents() {
+    let eventsHTML = ''
+    events.sort((a,b) => b.from - a.from)
+    for (const event of events) {
+      const eventDate = new Date(event.from)
+      if (
+        eventDate.getDate() === date &&
+        eventDate.getMonth() === month &&
+        eventDate.getFullYear() === year
+      ) {
+        eventsHTML += `
+          <div class="event" data-id="${event.id}">
+            <div class="title">
+              <i class="fas fa-circle"></i>
+              <h3 class="event-title">${event.title}</h3>
+            </div>
+            <div class="event-time">
+              <span class="event-time">${eventDate.getHours()}:${eventDate.getMinutes().toString().padStart(2, '0')}</span>
+            </div>
+          </div>
+        `
+      }
+    }
+    if (eventsHTML === '') {
+      eventsHTML = `
+        <div class="no-event">
+          <h3>Aucun évenements</h3>
+        </div>
+      `
+    }
+    dom.eventsContainer.innerHTML = eventsHTML
+    addListenerToEvents()
+  }
+  function addListenerToEvents() {
+    const eventsEl = <NodeListOf<HTMLElement>>document.querySelectorAll('.events .event')
+    eventsEl.forEach(eventEl => {
+      const event = events.find(ev => ev.id.toString() === eventEl.dataset.id)
+      eventEl.addEventListener('click', () => {
+        newWindow(event)
+      })
+    })
+  }
+
+
 
   function newWindow(event: Event) {
     ipcRenderer.invoke('createDetailWindow', event)
@@ -268,8 +313,5 @@ window.addEventListener(`DOMContentLoaded`, () => {
   dom.addEventCloseBtn.addEventListener('click', () => {
     dom.addEventContainer.classList.remove('active')
     dom.addEventBtn.classList.remove('active')
-  })
-  dom.testNewWindow.addEventListener('click', () => {
-    newWindow(events[0])
   })
 })
