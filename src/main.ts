@@ -23,6 +23,7 @@ function createWindow() {
   mainWindow.webContents.openDevTools()
 }
 
+// Open detail window
 function createDetailWindow(testData: any) {
   const browerWindow = new BrowserWindow({
     webPreferences: {
@@ -43,8 +44,6 @@ function createDetailWindow(testData: any) {
 
   detailWindows.push(browerWindow)
 }
-
-
 ipcMain.handle('createDetailWindow', (event, params) => {
   createDetailWindow(params)
 })
