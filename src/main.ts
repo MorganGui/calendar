@@ -23,18 +23,18 @@ function createWindow() {
   mainWindow.webContents.openDevTools()
 }
 
+// Open detail window
 function createDetailWindow(testData: any) {
   const browerWindow = new BrowserWindow({
     webPreferences: {
       preload: path.join(__dirname, './views/detail.js'),
       nodeIntegration: true
     },
-    width: 1920,
-    height: 1080
+    width: 1280,
+    height: 720
   })
 
   browerWindow.loadFile(path.join(__dirname, '../detail.html'))
-  browerWindow.maximize()
   browerWindow.removeMenu()
   browerWindow.webContents.send('init-data', testData)
 
@@ -43,8 +43,6 @@ function createDetailWindow(testData: any) {
 
   detailWindows.push(browerWindow)
 }
-
-
 ipcMain.handle('createDetailWindow', (event, params) => {
   createDetailWindow(params)
 })
