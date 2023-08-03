@@ -1,6 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import * as path from 'path'
-import Event from './classes/Event'
 
 let mainWindow
 const detailWindows = []
@@ -25,7 +24,7 @@ function createWindow() {
 }
 
 // Open detail window
-function createDetailWindow(testData: any) {
+ipcMain.handle('createDetailWindow', (event, params) => {
   const browerWindow = new BrowserWindow({
     webPreferences: {
       preload: path.join(__dirname, './views/detail.js'),
@@ -37,12 +36,9 @@ function createDetailWindow(testData: any) {
 
   browerWindow.loadFile(path.join(__dirname, '../detail.html'))
   browerWindow.removeMenu()
-  browerWindow.webContents.send('init-data', testData)
+  browerWindow.webContents.send('init-data', params)
 
   detailWindows.push(browerWindow)
-}
-ipcMain.handle('createDetailWindow', (event, params) => {
-  createDetailWindow(params)
 })
 
 // Open change window
