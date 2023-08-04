@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   ipcRenderer.on('init-data', (event, params: Event) => {
     currentEvent = Event.hydrate(params);
-    NewCurrentEvent = { ...currentEvent };
+    NewCurrentEvent = Event.hydrate({ ...currentEvent });
 
     const fromReadableDate = formatTimestampToReadableDate(currentEvent.from);
     const toReadableDate = formatTimestampToReadableDate(currentEvent.to);
