@@ -19,6 +19,20 @@ export default class Event {
     return new Event(object.id, object.from, object.to, object.title, object.desc)
   }
 
+  static getAll(): Promise<Event[]> {
+    return new Promise((resolve, reject) => {
+      db.all('select * from event', (_, res) => {
+        resolve(res as Event[])
+      })
+    })
+  }
+  static async getByTwoTime(from: number, to: number): Promise<Event[]> {
+    return new Promise((resolve, reject) => {
+      db.all('select * from event where `from` >= ? and `from` <= ?', [from, to], (_, res) => {
+        resolve(res as Event[])
+      })
+    })
+  }
 
   async save() {
     if (this.id) {

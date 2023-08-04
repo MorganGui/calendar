@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron'
 import Event from './classes/Event'
 
-window.addEventListener(`DOMContentLoaded`, () => {
+window.addEventListener(`DOMContentLoaded`, async () => {
   /**
    * CALENDAR
    */
@@ -220,11 +220,6 @@ window.addEventListener(`DOMContentLoaded`, () => {
   /**
    * EVENTS
    */
-  const events = [
-    new Event(0, 1690966677000, 1690966677000, 'Pause déjeuner', 'blablablablablablablablablablablablablablablablablablablabla blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'),
-    new Event(1, 1690977777000, 1690977777000, 'test', 'blablablablablablablablablablablablablablablablablablablablablablablabla blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'),
-    new Event(2, 1688893368429, 1688893488429, 'test2', 'blablablablablablablablablablablablablablablablablablablablablablablabla blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla')
-  ]
 
   /**
    * check if the title isn't largest than 50 characters
@@ -295,6 +290,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
 
 
   // Calendar
+  const events = await Event.getAll()
   initCalendar(true)
   dom.prev.addEventListener('click', prevMonth)
   dom.next.addEventListener('click', nextMonth)

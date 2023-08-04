@@ -88,9 +88,9 @@ window.addEventListener('DOMContentLoaded', () => {
       NewCurrentEvent.from = newStartTimeStamp;
       NewCurrentEvent.to = newEndTimeStamp;
 
-      console.log(newStartTimeStamp);
-      console.log(newEndTimeStamp);
-      console.log(NewCurrentEvent);
+      // console.log(newStartTimeStamp);
+      // console.log(newEndTimeStamp);
+      // console.log(NewCurrentEvent);
     });
   }
 });

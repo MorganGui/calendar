@@ -23,8 +23,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const toReadableDate = formatTimestampToReadableDate(currentEvent.to);
 
     // Utilisation des dates traduites
-    console.log('From:', fromReadableDate);
-    console.log('To:', toReadableDate);
+    // console.log('From:', fromReadableDate);
+    // console.log('To:', toReadableDate);
 
     // Affichage du titre dans l'élément avec l'ID "Dtitle"
     const DtitleElement = document.getElementById('Dtitle');
